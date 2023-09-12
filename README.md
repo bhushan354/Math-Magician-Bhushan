@@ -19,7 +19,11 @@
   - [📝 License ](#-license-)
 
 
-**[Leaderboard App]**This Project uses react to perform all its actions<br />
+**[Leaderboard App]** "Math magicians" is a website for all fans of mathematics. It is a Single Page App (SPA) that allows users to:
+
+Make simple calculations.
+Read a random math-related quote.
+<br />
 
 ## 🛠 Built With <a name="built-with"></a>
 

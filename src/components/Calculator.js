@@ -1,16 +1,14 @@
 import React from 'react';
+import CalculatorDisplay from './CalculatorDisplay';
 
 export default function Calculator() {
   return (
     <div className="calciGrid">
-      <div className="output">
-        <div className="prev-Num" />
-        <div className="curr-Num">0</div>
-      </div>
+      <CalculatorDisplay />
       <button type="button">AC</button>
       <button type="button">+/-</button>
       <button type="button">%</button>
-      <button type="button" className="orngBtn">+</button>
+      <button type="button" className="orngBtn">÷</button>
       <button type="button">7</button>
       <button type="button">8</button>
       <button type="button">9</button>

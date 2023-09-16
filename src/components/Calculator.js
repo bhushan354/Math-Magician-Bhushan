@@ -38,7 +38,7 @@ function Calculator() {
       {renderButton('7')}
       {renderButton('8')}
       {renderButton('9')}
-      {renderButton('*', 'orngBtn')}
+      {renderButton('x', 'orngBtn')}
       {renderButton('4')}
       {renderButton('5')}
       {renderButton('6')}

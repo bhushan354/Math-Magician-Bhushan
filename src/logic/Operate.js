@@ -1,21 +1,34 @@
 import Big from 'big.js';
 
-export default function Operate(num1, num2, operator) {
-  const operand1 = Big(num1);
-  const operand2 = Big(num2);
+export default function Operate(prevNum, nextNum, operatorValue) {
+  const firstNum = Big(prevNum);
+  const secondNum = Big(nextNum);
 
-  switch (operator) {
+  switch (operatorValue) {
     case '+':
-      return operand1.plus(operand2).toString();
+      return firstNum.plus(secondNum).toString();
+
     case '-':
-      return operand1.minus(operand2).toString();
-    case '*':
-      return operand1.times(operand2).toString();
-    case '/':
-      return operand2.eq(0) ? "Can't divide by 0." : operand1.div(operand2).toString();
+      return firstNum.minus(secondNum).toString();
+
+    case 'x':
+      return firstNum.times(secondNum).toString();
+
+    case '÷':
+      try {
+        return firstNum.div(secondNum).toString();
+      } catch (err) {
+        return "Can't divide by 0.";
+      }
+
     case '%':
-      return operand2.eq(0) ? "Can't find modulo as can't divide by 0." : operand1.mod(operand2).toString();
+      try {
+        return firstNum.mod(secondNum).toString();
+      } catch (err) {
+        return "Can't find modulo as can't divide by 0.";
+      }
+
     default:
-      return 'Unknown operation';
+      throw Error(`Unknown operatorValue '${operatorValue}'`);
   }
 }

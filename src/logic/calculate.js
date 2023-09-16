@@ -1,119 +1,133 @@
 import operate from './Operate';
 
-function checkNum(item) {
-  const containsNumericDigits = /[0-9]+/.test(item);
-
-  const isNumeric = !!containsNumericDigits;
-
-  return isNumeric;
+function isNumber(item) {
+  return !!item.match(/[0-9]+/);
 }
 
-export default function calculate(inObject, numName) {
-  if (numName === 'AC') {
+/**
+ * Given a button name and a calculator data object, return an updated
+ * calculator data object.
+ *
+ * Calculator data object contains:
+ *   total:s      the running total
+ *   next:String       the next number to be operated on with the total
+ *   operation:String  +, -, etc.
+ */
+export default function calculate(obj, buttonName) {
+  if (buttonName === 'AC') {
     return {
-      sum: null,
-      newNum: null,
-      action: null,
+      total: null,
+      next: null,
+      operation: null,
     };
   }
 
-  switch (true) {
-    case checkNum(numName):
-      if (numName === '0' && inObject.newNum === '0') {
-        return {};
+  if (isNumber(buttonName)) {
+    if (buttonName === '0' && obj.next === '0') {
+      return {};
+    }
+    // If there is an operation, update next
+    if (obj.operation) {
+      if (obj.next && obj.next !== '0') {
+        return { ...obj, next: obj.next + buttonName };
       }
-      // If here actn, updte newNum
-      if (inObject.action) {
-        if (inObject.newNum && inObject.newNum !== '0') {
-          return { ...inObject, newNum: inObject.newNum + numName };
-        }
-        return { ...inObject, newNum: numName };
-      }
-      // to chek no actn, updat newNum nd clear the value
-      if (inObject.newNum && inObject.newNum !== '0') {
-        return {
-          newNum: inObject.newNum + numName,
-          sum: null,
-        };
-      }
+      return { ...obj, next: buttonName };
+    }
+    // If there is no operation, update next and clear the value
+    if (obj.next && obj.next !== '0') {
       return {
-        newNum: numName,
-        sum: null,
+        next: obj.next + buttonName,
+        total: null,
       };
-
-    default:
-      break;
-  }
-
-  if (numName === '.') {
-    if (inObject.newNum) {
-      if (inObject.newNum.includes('.')) {
-        return { ...inObject };
-      }
-      return { ...inObject, newNum: `${inObject.newNum}.` };
     }
-
-    if (inObject.action) {
-      return { ...inObject, newNum: '0.' };
-    }
-
-    if (inObject.sum) {
-      if (inObject.sum.includes('.')) {
-        return {};
-      }
-      return { ...inObject, newNum: `${inObject.sum}.` };
-    }
-    return { ...inObject, newNum: '0.' };
-  }
-
-  if (inObject.action) {
-    if (inObject.sum && !inObject.newNum) {
-      return { ...inObject, action: numName };
-    }
-
-    if (!inObject.sum) {
-      return { sum: 0, action: numName };
-    }
-
     return {
-      sum: operate(inObject.sum, inObject.newNum, inObject.action),
-      newNum: null,
-      action: numName,
+      next: buttonName,
+      total: null,
     };
   }
 
-  if (!inObject.newNum) {
-    return { action: numName };
+  if (buttonName === '.') {
+    if (obj.next) {
+      if (obj.next.includes('.')) {
+        return { ...obj };
+      }
+      return { ...obj, next: `${obj.next}.` };
+    }
+    if (obj.operation) {
+      return { ...obj, next: '0.' };
+    }
+    if (obj.total) {
+      if (obj.total.includes('.')) {
+        return {};
+      }
+      return { ...obj, next: `${obj.total}.` };
+    }
+    return { ...obj, next: '0.' };
   }
 
-  if (numName === '+/-') {
-    if (inObject.newNum) {
-      return { ...inObject, newNum: (-1 * parseFloat(inObject.newNum)).toString() };
+  if (buttonName === '=') {
+    if (obj.next && obj.operation) {
+      return {
+        total: operate(obj.total, obj.next, obj.operation),
+        next: null,
+        operation: null,
+      };
     }
-    if (inObject.sum) {
-      return { ...inObject, sum: (-1 * parseFloat(inObject.sum)).toString() };
+    // '=' with no operation, nothing to do
+    return {};
+  }
+
+  if (buttonName === '+/-') {
+    if (obj.next) {
+      return { ...obj, next: (-1 * parseFloat(obj.next)).toString() };
+    }
+    if (obj.total) {
+      return { ...obj, total: (-1 * parseFloat(obj.total)).toString() };
     }
     return {};
   }
 
-  if (numName === '=') {
-    if (inObject.newNum && inObject.action) {
-      return {
-        sum: operate(inObject.sum, inObject.newNum, inObject.action),
-        newNum: null,
-        action: null,
-      };
+  // Button must be an operation
+
+  // When the user presses an operation button without having entered
+  // a number first, do nothing.
+  // if (!obj.next && !obj.total) {
+  //   return {};
+  // }
+
+  // User pressed an operation after pressing '='
+  if (!obj.next && obj.total && !obj.operation) {
+    return { ...obj, operation: buttonName };
+  }
+
+  // User pressed an operation button and there is an existing operation
+  if (obj.operation) {
+    if (obj.total && !obj.next) {
+      return { ...obj, operation: buttonName };
     }
-    return {};
+
+    if (!obj.total) {
+      return { total: 0, operation: buttonName };
+    }
+
+    return {
+      total: operate(obj.total, obj.next, obj.operation),
+      next: null,
+      operation: buttonName,
+    };
   }
 
-  if (!inObject.newNum && inObject.sum && !inObject.action) {
-    return { ...inObject, action: numName };
+  // no operation yet, but the user typed one
+
+  // The user hasn't typed a number yet, just save the operation
+  if (!obj.next) {
+    return { operation: buttonName };
   }
 
+  // save the operation and shift 'next' into 'total'
   return {
-    sum: inObject.newNum,
-    action: numName,
-    newNum: null,
+    total: obj.next,
+    next: null,
+    operation: buttonName,
   };
 }

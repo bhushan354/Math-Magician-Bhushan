@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './Calculator.css';
 import calculate from '../logic/calculate';
+import CalculatorDisplay from './CalculatorDisplay';
 
 function Calculator() {
   const [dataOld, dataNew] = useState({
-    sum: null,
-    action: null,
-    newNum: null,
+    total: null,
+    next: null,
+    operation: null,
   });
   const handleClick = (symbol) => {
     let operand = symbol;
@@ -17,11 +18,11 @@ function Calculator() {
     const calculatedNum = calculate(dataOld, operand);
     dataNew(calculatedNum);
   };
-  const displayValue = dataOld.newNum || dataOld.sum || '0';
+  const calciToDisplay = dataOld.next || dataOld.total || '0';
 
   return (
     <div className="calciGrid">
-      <div className="output">{displayValue}</div>
+      <CalculatorDisplay calciToDisplay={calciToDisplay} />
       <button type="button" onClick={() => handleClick('AC')}>AC</button>
       <button type="button" onClick={() => handleClick('+/-')}>+/-</button>
       <button type="button" onClick={() => handleClick('%')}>%</button>

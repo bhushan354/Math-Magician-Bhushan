@@ -4,45 +4,52 @@ import calculate from '../logic/calculate';
 import CalculatorDisplay from './CalculatorDisplay';
 
 function Calculator() {
-  const [dataOld, dataNew] = useState({
+  const [data, setData] = useState({
     total: null,
     next: null,
     operation: null,
   });
-  const handleClick = (symbol) => {
-    let operand = symbol;
-    if (symbol === '/') {
-      operand = '÷';
-    }
 
-    const calculatedNum = calculate(dataOld, operand);
-    dataNew(calculatedNum);
+  const handleClick = (symbol) => {
+    const operand = symbol === '/' ? '÷' : symbol;
+    const calculatedNum = calculate(data, operand);
+    setData(calculatedNum);
   };
-  const calciToDisplay = dataOld.next || dataOld.total || '0';
+
+  const calciToDisplay = data.next || data.total || '0';
+
+  const renderButton = (symbol, className = '') => (
+    <button
+      type="button"
+      className={className}
+      onClick={() => handleClick(symbol)}
+    >
+      {symbol}
+    </button>
+  );
 
   return (
     <div className="calciGrid">
       <CalculatorDisplay calciToDisplay={calciToDisplay} />
-      <button type="button" onClick={() => handleClick('AC')}>AC</button>
-      <button type="button" onClick={() => handleClick('+/-')}>+/-</button>
-      <button type="button" onClick={() => handleClick('%')}>%</button>
-      <button type="button" className="orngBtn" onClick={() => handleClick('/')}>÷</button>
-      <button type="button" onClick={() => handleClick('7')}>7</button>
-      <button type="button" onClick={() => handleClick('8')}>8</button>
-      <button type="button" onClick={() => handleClick('9')}>9</button>
-      <button type="button" className="orngBtn" onClick={() => handleClick('x')}>*</button>
-      <button type="button" onClick={() => handleClick('4')}>4</button>
-      <button type="button" onClick={() => handleClick('5')}>5</button>
-      <button type="button" onClick={() => handleClick('6')}>6</button>
-      <button type="button" className="orngBtn" onClick={() => handleClick('-')}>-</button>
-      <button type="button" onClick={() => handleClick('1')}>1</button>
-      <button type="button" onClick={() => handleClick('2')}>2</button>
-      <button type="button" onClick={() => handleClick('3')}>3</button>
-      <button type="button" className="orngBtn" onClick={() => handleClick('+')}>+</button>
-      <button type="button" className="span-two" onClick={() => handleClick('0')}>0</button>
-      <button type="button" onClick={() => handleClick('.')}>.</button>
-      <button type="button" className="orngBtn" onClick={() => handleClick('=')}>=</button>
-
+      {renderButton('AC')}
+      {renderButton('+/-')}
+      {renderButton('%')}
+      {renderButton('/', 'orngBtn')}
+      {renderButton('7')}
+      {renderButton('8')}
+      {renderButton('9')}
+      {renderButton('*', 'orngBtn')}
+      {renderButton('4')}
+      {renderButton('5')}
+      {renderButton('6')}
+      {renderButton('-', 'orngBtn')}
+      {renderButton('1')}
+      {renderButton('2')}
+      {renderButton('3')}
+      {renderButton('+', 'orngBtn')}
+      {renderButton('0', 'span-two')}
+      {renderButton('.')}
+      {renderButton('=', 'orngBtn')}
     </div>
   );
 }

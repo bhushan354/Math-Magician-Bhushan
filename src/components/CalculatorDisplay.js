@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import './Calculator.css';
 
-function CalculatorDisplay() {
+export default function CalculatorDisplay({ calciToDisplay }) {
   return (
-    <div className="output">
-      <div className="prev-Num" />
-      <div className="curr-Num">0</div>
-    </div>
+
+    <div className="output">{calciToDisplay}</div>
+
   );
 }
 
-export default CalculatorDisplay;
+CalculatorDisplay.propTypes = {
+  calciToDisplay: PropTypes.string.isRequired,
+};

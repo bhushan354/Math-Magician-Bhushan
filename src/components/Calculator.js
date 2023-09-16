@@ -1,30 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './Calculator.css';
+import calculate from '../logic/calculate';
 import CalculatorDisplay from './CalculatorDisplay';
 
-export default function Calculator() {
+function Calculator() {
+  const [dataOld, dataNew] = useState({
+    total: null,
+    next: null,
+    operation: null,
+  });
+  const handleClick = (symbol) => {
+    let operand = symbol;
+    if (symbol === '/') {
+      operand = '÷';
+    }
+
+    const calculatedNum = calculate(dataOld, operand);
+    dataNew(calculatedNum);
+  };
+  const calciToDisplay = dataOld.next || dataOld.total || '0';
+
   return (
     <div className="calciGrid">
-      <CalculatorDisplay />
-      <button type="button">AC</button>
-      <button type="button">+/-</button>
-      <button type="button">%</button>
-      <button type="button" className="orngBtn">÷</button>
-      <button type="button">7</button>
-      <button type="button">8</button>
-      <button type="button">9</button>
-      <button type="button" className="orngBtn">*</button>
-      <button type="button">4</button>
-      <button type="button">5</button>
-      <button type="button">6</button>
-      <button type="button" className="orngBtn">-</button>
-      <button type="button">3</button>
-      <button type="button">2</button>
-      <button type="button">1</button>
-      <button type="button" className="orngBtn">+</button>
-      <button type="button" className="span-two">0</button>
-      <button type="button">.</button>
-      <button type="button" className="orngBtn">=</button>
+      <CalculatorDisplay calciToDisplay={calciToDisplay} />
+      <button type="button" onClick={() => handleClick('AC')}>AC</button>
+      <button type="button" onClick={() => handleClick('+/-')}>+/-</button>
+      <button type="button" onClick={() => handleClick('%')}>%</button>
+      <button type="button" className="orngBtn" onClick={() => handleClick('/')}>÷</button>
+      <button type="button" onClick={() => handleClick('7')}>7</button>
+      <button type="button" onClick={() => handleClick('8')}>8</button>
+      <button type="button" onClick={() => handleClick('9')}>9</button>
+      <button type="button" className="orngBtn" onClick={() => handleClick('x')}>*</button>
+      <button type="button" onClick={() => handleClick('4')}>4</button>
+      <button type="button" onClick={() => handleClick('5')}>5</button>
+      <button type="button" onClick={() => handleClick('6')}>6</button>
+      <button type="button" className="orngBtn" onClick={() => handleClick('-')}>-</button>
+      <button type="button" onClick={() => handleClick('1')}>1</button>
+      <button type="button" onClick={() => handleClick('2')}>2</button>
+      <button type="button" onClick={() => handleClick('3')}>3</button>
+      <button type="button" className="orngBtn" onClick={() => handleClick('+')}>+</button>
+      <button type="button" className="span-two" onClick={() => handleClick('0')}>0</button>
+      <button type="button" onClick={() => handleClick('.')}>.</button>
+      <button type="button" className="orngBtn" onClick={() => handleClick('=')}>=</button>
 
     </div>
   );
 }
+
+export default Calculator;

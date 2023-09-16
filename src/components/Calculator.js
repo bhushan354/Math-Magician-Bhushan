@@ -10,16 +10,13 @@ function Calculator() {
   });
   const handleClick = (symbol) => {
     let operand = symbol;
-    console.log(operand);
     if (symbol === '/') {
       operand = '÷';
     }
 
     const calculatedNum = calculate(dataOld, operand);
-    console.log(calculatedNum);
     dataNew(calculatedNum);
   };
-  console.log(dataOld.sum);
   const displayValue = dataOld.newNum || dataOld.sum || '0';
 
   return (

@@ -29,28 +29,33 @@ function Calculator() {
   );
 
   return (
-    <div className="calciGrid">
-      <CalculatorDisplay calciToDisplay={calciToDisplay} />
-      {renderButton('AC')}
-      {renderButton('+/-')}
-      {renderButton('%')}
-      {renderButton('/', 'orngBtn')}
-      {renderButton('7')}
-      {renderButton('8')}
-      {renderButton('9')}
-      {renderButton('x', 'orngBtn')}
-      {renderButton('4')}
-      {renderButton('5')}
-      {renderButton('6')}
-      {renderButton('-', 'orngBtn')}
-      {renderButton('1')}
-      {renderButton('2')}
-      {renderButton('3')}
-      {renderButton('+', 'orngBtn')}
-      {renderButton('0', 'span-two')}
-      {renderButton('.')}
-      {renderButton('=', 'orngBtn')}
-    </div>
+    <>
+      <div className="calciText">
+        <h2> Let&apos;s Do Some Maths!! </h2>
+      </div>
+      <div className="calciGrid">
+        <CalculatorDisplay calciToDisplay={calciToDisplay} />
+        {renderButton('AC')}
+        {renderButton('+/-')}
+        {renderButton('%')}
+        {renderButton('/', 'orngBtn')}
+        {renderButton('7')}
+        {renderButton('8')}
+        {renderButton('9')}
+        {renderButton('x', 'orngBtn')}
+        {renderButton('4')}
+        {renderButton('5')}
+        {renderButton('6')}
+        {renderButton('-', 'orngBtn')}
+        {renderButton('1')}
+        {renderButton('2')}
+        {renderButton('3')}
+        {renderButton('+', 'orngBtn')}
+        {renderButton('0', 'span-two')}
+        {renderButton('.')}
+        {renderButton('=', 'orngBtn')}
+      </div>
+    </>
   );
 }
 

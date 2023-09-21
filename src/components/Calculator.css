@@ -14,7 +14,8 @@ body {
   grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
   display: grid;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: 75px;
+  margin-left: 24px;
 }
 
 .calciGrid > button {
@@ -52,6 +53,11 @@ body {
   color: aliceblue;
 }
 
+h3 {
+  color: darkblue;
+  margin-left: 15px;
+}
+
 /* quote styling */
 .quoteDisplay {
   display: flex;
@@ -59,7 +65,7 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 12px;
-  margin-top: 15px;
+  margin-top: 22vh;
   background: bisque;
   width: 70%;
   padding: 10px;
@@ -69,9 +75,22 @@ body {
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+h2 {
+  color: black;
+  font-size: 6vw;
+  margin-left: 15px;
+}
+
+.calciText h2 {
+  color: aliceblue;
+  font-size: 3vw;
+  width: 100%;
+  text-align: center;
 }
 
 .string {

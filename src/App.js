@@ -18,7 +18,7 @@ function App() {
 
           <div className="linksContainer">
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
               <Link to="/calculator">Calculator</Link>
@@ -31,11 +31,9 @@ function App() {
       </nav>
       <div className="container">
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/quote" element={<DisplayQuote />} />
           <Route path="/calculator" element={<Calculator />} />
-          {/* <DisplayQuote />
-        <Calculator /> */}
         </Routes>
       </div>
     </>

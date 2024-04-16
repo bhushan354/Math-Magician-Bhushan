@@ -1,8 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import '../stylesheet/calculator.css';
+import {
+  FirstLine, SecondLine, ThirdLine, FourthLine, FifthLine,
+} from './Buttons';
+import ResultLine from './ResultLine';
+import calculate from '../logic/calculate';
 
 function Calculator() {
+  const [obj, setObject] = useState({
+    total: 0,
+    next: null,
+    operation: null,
+  });
+
+  const handleClick = (e) => {
+    setObject(calculate(obj, e.target.innerHTML));
+  };
+
   return (
-    <div />
+    <div className="container">
+      <h2>Let do some mathematics!</h2>
+      <div className="calculator">
+        <ResultLine total={obj.total} operation={obj.operation} next={obj.next} />
+        <FirstLine handleClick={handleClick} />
+        <SecondLine handleClick={handleClick} />
+        <ThirdLine handleClick={handleClick} />
+        <FourthLine handleClick={handleClick} />
+        <FifthLine handleClick={handleClick} />
+      </div>
+    </div>
   );
 }
 

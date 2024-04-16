@@ -1,43 +1,25 @@
-import './components/Calculator.css';
-import { Link, Route, Routes } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/Homepage';
+import Layout from './components/Layout';
 import Calculator from './components/Calculator';
-import DisplayQuote from './components/DisplayQuote';
-import Home from './components/Home';
-import './App.css';
+import FetchQuote from './api/fetchQuote';
+import './stylesheet/App.css';
+import './stylesheet/quote.css';
 
 function App() {
   return (
-    <>
-      <nav>
-        <div className="navContainer">
-          <div>
-            <li className="heading">
-              Math Magician
-            </li>
-          </div>
-
-          <div className="linksContainer">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/calculator">Calculator</Link>
-            </li>
-            <li>
-              <Link to="/quote">Quote</Link>
-            </li>
-          </div>
-        </div>
-      </nav>
-      <div className="container">
+    <div className="app">
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/quote" element={<DisplayQuote />} />
-          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="calculator" element={<Calculator />} />
+            <Route path="quotes" element={<FetchQuote />} />
+          </Route>
         </Routes>
-      </div>
-    </>
+      </BrowserRouter>
+    </div>
   );
 }
-
 export default App;

@@ -1,61 +1,34 @@
 import React, { useState } from 'react';
-import './Calculator.css';
+import '../stylesheet/calculator.css';
+import {
+  FirstLine, SecondLine, ThirdLine, FourthLine, FifthLine,
+} from './Buttons';
+import ResultLine from './ResultLine';
 import calculate from '../logic/calculate';
-import CalculatorDisplay from './CalculatorDisplay';
 
 function Calculator() {
-  const [data, setData] = useState({
-    total: null,
+  const [obj, setObject] = useState({
+    total: 0,
     next: null,
     operation: null,
   });
 
-  const handleClick = (symbol) => {
-    const operand = symbol === '/' ? '÷' : symbol;
-    const calculatedNum = calculate(data, operand);
-    setData(calculatedNum);
+  const handleClick = (e) => {
+    setObject(calculate(obj, e.target.innerHTML));
   };
 
-  const calciToDisplay = data.next || data.total || '0';
-
-  const renderButton = (symbol, className = '') => (
-    <button
-      type="button"
-      className={className}
-      onClick={() => handleClick(symbol)}
-    >
-      {symbol}
-    </button>
-  );
-
   return (
-    <>
-      <div className="calciText">
-        <h2> Let&apos;s Do Some Maths!! </h2>
+    <div className="container">
+      <h2>Let do some mathematics!</h2>
+      <div className="calculator">
+        <ResultLine total={obj.total} operation={obj.operation} next={obj.next} />
+        <FirstLine handleClick={handleClick} />
+        <SecondLine handleClick={handleClick} />
+        <ThirdLine handleClick={handleClick} />
+        <FourthLine handleClick={handleClick} />
+        <FifthLine handleClick={handleClick} />
       </div>
-      <div className="calciGrid">
-        <CalculatorDisplay calciToDisplay={calciToDisplay} />
-        {renderButton('AC')}
-        {renderButton('+/-')}
-        {renderButton('%')}
-        {renderButton('/', 'orngBtn')}
-        {renderButton('7')}
-        {renderButton('8')}
-        {renderButton('9')}
-        {renderButton('x', 'orngBtn')}
-        {renderButton('4')}
-        {renderButton('5')}
-        {renderButton('6')}
-        {renderButton('-', 'orngBtn')}
-        {renderButton('1')}
-        {renderButton('2')}
-        {renderButton('3')}
-        {renderButton('+', 'orngBtn')}
-        {renderButton('0', 'span-two')}
-        {renderButton('.')}
-        {renderButton('=', 'orngBtn')}
-      </div>
-    </>
+    </div>
   );
 }
 

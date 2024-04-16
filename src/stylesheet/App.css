@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --button: #e0e0e0;
+    --button-hover: #d8d8d8;
+    --last-button: #37abd8;
+    --last-button-hover: #3b81c3;
+    --result-bar: #858694;
+    --white: #fff;
+    --background: #ebdada;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 65.2%;
+    height: 100%;
+    width: 100%;
+    background: #bebeff;
+  }
+  
+  #root {
+    padding: 1.5%;
+  }
+  
+  .app {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+  }
+  

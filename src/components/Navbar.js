@@ -1,15 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import '../stylesheet/navbar.css';
+import { NavLink } from 'react-router-dom';
+import '../stylesheet/navbar.css'; // Make sure your CSS is properly linked
 
 function Navbar() {
   return (
     <header>
       <h1>Math Magician</h1>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/calculator">Calculator</Link>
-        <Link to="/quotes">Quote</Link>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? 'nav-item active' : 'nav-item')}
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/calculator"
+          className={({ isActive }) => (isActive ? 'nav-item active' : 'nav-item')}
+        >
+          Calculator
+        </NavLink>
+        <NavLink
+          to="/quotes"
+          className={({ isActive }) => (isActive ? 'nav-item active' : 'nav-item')}
+        >
+          Quote
+        </NavLink>
       </nav>
     </header>
   );
